@@ -69,5 +69,6 @@ class TestNonRepeatingLetter(unittest.TestCase):
         self.assertEqual(first_non_repeating_letter2('sTreSS'), 'T')
         self.assertEqual(first_non_repeating_letter2('Go hang a salami, I\'m a lasagna hog!'), ',')
 
+
 if __name__ == '__main__':
     unittest.main()
