@@ -14,10 +14,25 @@
 # If a string contains all repeating characters, it should return an empty string ("") or None -- see sample tests.
 
 import unittest
+import re
 
 
 def first_non_repeating_letter(string):
-    #your code here
+    if string not in ("", None):
+        for c in string:
+            p = r"" + c
+            if len(re.findall(p, string, flags=re.IGNORECASE)) == 1:
+                return c
+
+    return ""
+
+
+def first_non_repeating_letter2(string):
+    string_lower = string.lower()
+    for i, c in enumerate(string):
+        if string_lower.count(c.lower()) == 1:
+            return string[i]
+    return ""
 
 
 class TestNonRepeatingLetter(unittest.TestCase):
@@ -38,6 +53,21 @@ class TestNonRepeatingLetter(unittest.TestCase):
         self.assertEqual(first_non_repeating_letter('sTreSS'), 'T')
         self.assertEqual(first_non_repeating_letter('Go hang a salami, I\'m a lasagna hog!'), ',')
 
+    def test_first_non_repeating_letter_simple2(self):
+        self.assertEqual(first_non_repeating_letter2('a'), 'a')
+        self.assertEqual(first_non_repeating_letter2('stress'), 't')
+        self.assertEqual(first_non_repeating_letter2('moonmen'), 'e')
+
+    def test_first_non_repeating_letter_empty2(self):
+        self.assertEqual(first_non_repeating_letter2(''), '')
+
+    def test_first_non_repeating_letter_odd2(self):
+        self.assertEqual(first_non_repeating_letter2('~><#~><'), '#')
+        self.assertEqual(first_non_repeating_letter2('hello world, eh?'), 'w')
+
+    def test_first_non_repeating_letter_case2(self):
+        self.assertEqual(first_non_repeating_letter2('sTreSS'), 'T')
+        self.assertEqual(first_non_repeating_letter2('Go hang a salami, I\'m a lasagna hog!'), ',')
 
 if __name__ == '__main__':
     unittest.main()
