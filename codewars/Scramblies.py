@@ -45,6 +45,12 @@ def scramble2(s1, s2):
     return True
 
 
+def scramble3(s1, s2):
+    for c in set(s2):
+        if s1.count(c) < s2.count(c):
+            return False
+    return True
+
 class TestScramblies(unittest.TestCase):
 
     def test_scramble(self):
@@ -62,6 +68,14 @@ class TestScramblies(unittest.TestCase):
         self.assertEqual(scramble2('scriptjava', 'javascript'), True)
         self.assertEqual(scramble2('scriptingjava', 'javascript'), True)
         self.assertEqual(scramble2('nrmljmfklkgvgyuupqu', 'mglunrkypuqjumlgkfv'), True)
+
+    def test_scramble3(self):
+        self.assertEqual(scramble3('rkqodlw', 'world'),  True)
+        self.assertEqual(scramble3('cedewaraaossoqqyt', 'codewars'), True)
+        self.assertEqual(scramble3('katas', 'steak'), False)
+        self.assertEqual(scramble3('scriptjava', 'javascript'), True)
+        self.assertEqual(scramble3('scriptingjava', 'javascript'), True)
+        self.assertEqual(scramble3('nrmljmfklkgvgyuupqu', 'mglunrkypuqjumlgkfv'), True)
 
 
 if __name__ == '__main__':
