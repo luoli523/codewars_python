@@ -40,7 +40,37 @@
 import unittest
 
 def validSolution(board):
-    pass
+
+    def check(list):
+        if 0 in list:
+            return False
+
+        for i in range(1, 10):
+            if i not in list:
+                return False
+
+        return True
+
+    from numpy import array
+    a = array(board)
+
+    for i in range(0, 9):
+        arr = a[i, :]   # check every rows in the 2d-array
+        if not check(arr):
+            return False
+
+        arr = a[:, i]   # check every columns in the 2d-array
+        if not check(arr):
+            return False
+
+    for i in range(0, 3):
+        for j in range(0, 3):
+            sub_matrix = a[i*3 : (i+1)*3, j*3 : (j+1)*3]
+            arr = sub_matrix.reshape(sub_matrix.shape[0] * sub_matrix.shape[1])
+            if not check(arr):
+                return False
+
+    return True
 
 
 class TestSudoku(unittest.TestCase):
@@ -57,6 +87,8 @@ class TestSudoku(unittest.TestCase):
                                         [2, 8, 7, 4, 1, 9, 6, 3, 5],
                                         [3, 4, 5, 2, 8, 6, 1, 7, 9]
                                        ]), True)
+
+    def test_valid_solution2(self):
         self.assertEqual(validSolution([
                                         [5, 3, 4, 6, 7, 8, 9, 1, 2],
                                         [6, 7, 2, 1, 9, 0, 3, 4, 8],
